@@ -3,6 +3,7 @@ const path = require('path')
 const HTMLWebpackPlugin = require('html-webpack-plugin')
 
 const {CleanWebpackPlugin} = require('clean-webpack-plugin')
+const { PassThrough } = require('stream')
 
 module.exports = {
     context: path.resolve(__dirname, 'src'),
@@ -15,7 +16,13 @@ module.exports = {
         filename: '[name].[contenthash].js',
         path: path.resolve(__dirname, 'dist')
     },
-    
+    resolve: {
+        extensions: ['.js', '.json', '.png'],
+        alias: {
+            '@models': path.resolve(__dirname, 'src/models'),
+            '@': path.resolve(__dirname, 'src')
+        }
+    },
     plugins: [
         new HTMLWebpackPlugin({
             template: './index.html'
